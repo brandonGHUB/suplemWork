@@ -1,6 +1,6 @@
 #include "ride.h"
 
-class MagicCarpet: protected Ride{
+class MagicCarpet: public Ride{
     public:
         MagicCarpet();
 };

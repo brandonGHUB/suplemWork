@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "patron.h"
 
 #define MAX_RIDES 100
@@ -55,7 +53,7 @@ int Patron::getNumTickets(){
     return tickets;
 }
 
-Ride* Patron::getPatronRides(){ // not used yet
+Ride* Patron::getPatronRides(){
     return patronRides;
 }
 

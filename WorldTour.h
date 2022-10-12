@@ -1,6 +1,6 @@
 #include "ride.h"
 
-class WorldTour: protected Ride{
+class WorldTour: public Ride{
     public:
         WorldTour();
 };

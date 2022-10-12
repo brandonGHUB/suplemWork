@@ -1,9 +1,7 @@
 #include "patron.h"
-#include "ride.h"
-
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "Teacups.h"
+#include "MagicCarpet.h"
+#include "WorldTour.h"
 
 #define MAX_PATRONS 300
 #define MAX_RIDES 100
@@ -209,8 +207,9 @@ Patron createNewPatron(){
     string firstname;
     string lastname;
     int idNumber;
-    int numRides;
+    int numRides = MAX_RIDES;
     int numTickets;
+    string buyingOption;
     cout << "Let's add a patron to the system!" << endl;
     cout << "Patron First Name:" << endl;
     cin >> firstname;
@@ -220,14 +219,18 @@ Patron createNewPatron(){
     cin >> idNumber;
     cout << "Number of Tickets" << endl;
     cin >> numTickets;
-    cout << "Number of Rides" << endl;
-    cin >> numRides;
+    // cout << "Number of Rides" << endl;
+    // cin >> numRides;
     // numRides not implemented yet
     Ride rides[numRides]; // keep full of random crap for now
     Patron newPatron = Patron(firstname, lastname, idNumber, numTickets, numRides, rides);
-//rides array not implemented for now
 
-//fix rides
+    cout << "Would they like to purchase ride addmittance now?" << endl;
+    cin >> buyingOption;
+    while((buyingOption != "n" || buyingOption != "N")){
+        addRide(&newPatron);
+    }
+
     return newPatron;
 
 }
@@ -261,7 +264,7 @@ void modifyPatron(Patron* modifiedPatron){
 
         case 2: // purchase admittance to ride -- not implemented yet
             addRide(modifiedPatron);
-            cout << "not to be implemented yet" << endl;
+            //cout << "not to be implemented yet" << endl;
             break;
 
         case 3: // edit name
@@ -290,7 +293,40 @@ void addTickets(Patron* patronToAddTo){
 }
 
 void addRide(Patron* patron){
-    // not to be implemented yet
+    cout << "Which ride would you like to add?:" << endl;
+    cout << "1. Teacups" << endl;
+    cout << "2. Magic Carpet" << endl;
+    cout << "3. World Tour" << endl;
+    int ridechoice;
+    cin >> ridechoice;
+    switch(ridechoice){
+        case 1: // teacups ride
+        {
+            Ride newTeacups = Teacups();
+            patron->addPatronRide(newTeacups);
+            //int numRides = (patron->getPatronRides()).size();
+            cout << "Added Teacups Ride!" << endl;
+            break;
+        }
+
+        case 2: // magic carpet ride
+        {
+            Ride newMagicCarpet = MagicCarpet();
+            patron->addPatronRide(newMagicCarpet);
+            cout << "Added Magic Carpet Ride!" << endl;
+            break;
+        }
+
+        case 3: // world tour ride
+        {
+            patron->getPatronRides();
+            cout << "Name Changed!" << endl;
+            break;
+        }
+        default:
+            cout << "Invalid input!" << endl;
+            break;
+    }
 }
 
 void editName(Patron* newNamePatron){

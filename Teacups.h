@@ -1,6 +1,6 @@
 #include "ride.h"
 
-class Teacups: protected Ride{
+class Teacups: public Ride{
     public:
         Teacups();
 };

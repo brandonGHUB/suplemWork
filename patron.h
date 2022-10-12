@@ -3,12 +3,9 @@
 
 #include "ride.h"
 
-#include <iostream>
-#include <fstream>
+using namespace std;
 
 #define MAX_RIDES 100
-
-using namespace std;
 
 class Patron{
     string firstname;
