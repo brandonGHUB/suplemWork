@@ -1,7 +1,5 @@
 #include "ride.h"
 
-//not used in driver functionality yet
-
 Ride::Ride(){
     numTicketsNecessary = 0;
     name = "";

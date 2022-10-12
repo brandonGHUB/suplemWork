@@ -83,7 +83,19 @@ void Patron::displayName(){
 }
 
 void Patron::displayPatronData(){
-    cout << "Patron Data\nPatron Number: " << id << endl;
-    cout << "Number of Tickets: " << tickets << endl;
-    cout << "Number of Rides: " << rides << endl;
+    string rideDisplay = "";
+    cout << "First  Last  ID  Tickets" << endl;
+    cout << firstname << "  " << lastname << "  " << id << "  " << tickets << endl;
+
+
+    cout << "Has admittance to: ";
+    for(int i = 0; i < MAX_RIDES; i++){
+        cout << patronRides[i].getRideName() + " ";
+    }
+    cout << "" << endl;
+    //cout << patronRides[0].getRideName() << endl;
+
+    // cout << "Patron Data\nPatron Number: " << id << endl;
+    // cout << "Number of Tickets: " << tickets << endl;
+    // cout << "Number of Rides: " << rides << endl;
 }

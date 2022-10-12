@@ -209,7 +209,7 @@ Patron createNewPatron(){
     int idNumber;
     int numRides = MAX_RIDES;
     int numTickets;
-    string buyingOption;
+    string buyingOption = "";
     cout << "Let's add a patron to the system!" << endl;
     cout << "Patron First Name:" << endl;
     cin >> firstname;
@@ -225,9 +225,9 @@ Patron createNewPatron(){
     Ride rides[numRides]; // keep full of random crap for now
     Patron newPatron = Patron(firstname, lastname, idNumber, numTickets, numRides, rides);
 
-    cout << "Would they like to purchase ride addmittance now?" << endl;
+    cout << "Would they like to purchase ride admittance now?" << endl;
     cin >> buyingOption;
-    while((buyingOption != "n" || buyingOption != "N")){
+    if((buyingOption != "n" || buyingOption != "N")){
         addRide(&newPatron);
     }
 
@@ -302,25 +302,79 @@ void addRide(Patron* patron){
     switch(ridechoice){
         case 1: // teacups ride
         {
-            Ride newTeacups = Teacups();
-            patron->addPatronRide(newTeacups);
-            //int numRides = (patron->getPatronRides()).size();
-            cout << "Added Teacups Ride!" << endl;
+            if(patron->getNumTickets() >= 3){
+                Ride newTeacups = Teacups();
+                patron->addPatronRide(newTeacups);
+                patron->setNumTickets(patron->getNumTickets() - 3);
+                cout << "Added Teacups Ride!" << endl;
+            }else{
+                int ticketBuyChoice;
+                cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
+                cout << "1. Yes \n2. No" << endl;
+                cin >> ticketBuyChoice;
+                switch (ticketBuyChoice)
+                {
+                case 1:
+                    addTickets(patron);
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+                }
+            }
             break;
         }
 
         case 2: // magic carpet ride
         {
-            Ride newMagicCarpet = MagicCarpet();
-            patron->addPatronRide(newMagicCarpet);
-            cout << "Added Magic Carpet Ride!" << endl;
+            if(patron->getNumTickets() >= 2){
+                Ride newMagicCarpet = MagicCarpet();
+                patron->addPatronRide(newMagicCarpet);
+                patron->setNumTickets(patron->getNumTickets() - 2);
+                cout << "Added Magic Carpet Ride!" << endl;
+            }else{
+                int ticketBuyChoice;
+                cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
+                cout << "1. Yes \n 2. No" << endl;
+                cin >> ticketBuyChoice;
+                switch (ticketBuyChoice)
+                {
+                case 1:
+                    addTickets(patron);
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+                }
+            }
             break;
         }
 
         case 3: // world tour ride
         {
-            patron->getPatronRides();
-            cout << "Name Changed!" << endl;
+            if(patron->getNumTickets() >= 1){
+                Ride newWorldTour = WorldTour();
+                patron->addPatronRide(newWorldTour);
+                patron->setNumTickets(patron->getNumTickets() - 1);
+                cout << "Added World Tour Ride!" << endl;
+            }else{
+                int ticketBuyChoice;
+                cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
+                cout << "1. Yes \n 2. No" << endl;
+                cin >> ticketBuyChoice;
+                switch (ticketBuyChoice)
+                {
+                case 1:
+                    addTickets(patron);
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+                }
+            }
             break;
         }
         default:
