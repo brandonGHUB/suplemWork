@@ -1,0 +1,6 @@
+Doc	Oc	3	3
+Ash	Kechum	20	20
+Homer	Simpson	4	4
+john	doe	55	55
+test	add	45	45
+test	rides	34	34
