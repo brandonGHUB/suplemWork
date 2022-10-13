@@ -93,7 +93,7 @@ void Patron::displayPatronData(){
         cout << patronRides[i].getRideName() + " ";
     }
     cout << "" << endl;
-    //cout << patronRides[0].getRideName() << endl;
+    cout << patronRides[0].getRideName() << endl;
 
     // cout << "Patron Data\nPatron Number: " << id << endl;
     // cout << "Number of Tickets: " << tickets << endl;
