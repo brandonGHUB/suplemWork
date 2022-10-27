@@ -207,7 +207,7 @@ Patron createNewPatron(){
     string firstname;
     string lastname;
     int idNumber;
-    int numRides = MAX_RIDES;
+    int numRides = 0;
     int numTickets;
     cout << "Let's add a patron to the system!" << endl;
     cout << "Patron First Name:" << endl;
@@ -220,7 +220,7 @@ Patron createNewPatron(){
     cin >> numTickets;
     Ride rides[numRides]; // keep full of random crap for now
     Patron newPatron = Patron(firstname, lastname, idNumber, numTickets, numRides, rides);
-    string buyingOption = "";
+    string buyingOption;
     do{
         cout << "Would they like to purchase ride admittance now?" << endl;
         cout << "N for No" << endl;
