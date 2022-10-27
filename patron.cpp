@@ -75,6 +75,8 @@ void Patron::setNumTickets(int numtix){
 
 void Patron::addPatronRide(Ride newRide){
     patronRides[rides] = newRide;
+    cout << "Added " << patronRides[rides].getRideName() << " Ride!" << endl;
+    //cout << "added tide" << endl;
     rides++;
 }
 
@@ -83,17 +85,17 @@ void Patron::displayName(){
 }
 
 void Patron::displayPatronData(){
-    string rideDisplay = "";
+    //string rideDisplay = "";
     cout << "First  Last  ID  Tickets" << endl;
     cout << firstname << "  " << lastname << "  " << id << "  " << tickets << endl;
 
 
-    cout << "Has admittance to: ";
+    cout << firstname << " has admittance to: " << endl;
     for(int i = 0; i < MAX_RIDES; i++){
         cout << patronRides[i].getRideName() + " ";
     }
-    cout << "" << endl;
-    cout << patronRides[0].getRideName() << endl;
+    // cout << "test" << endl;
+    // cout << patronRides[0].getRideName() << endl;
 
     // cout << "Patron Data\nPatron Number: " << id << endl;
     // cout << "Number of Tickets: " << tickets << endl;

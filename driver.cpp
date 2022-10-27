@@ -220,7 +220,15 @@ Patron createNewPatron(){
     cin >> numTickets;
     Ride rides[numRides]; // keep full of random crap for now
     Patron newPatron = Patron(firstname, lastname, idNumber, numTickets, numRides, rides);
-    addRide(&newPatron);
+    string buyingOption = "";
+    do{
+        cout << "Would they like to purchase ride admittance now?" << endl;
+        cout << "N for No" << endl;
+        cin >> buyingOption;
+        if(buyingOption != "N"){
+        addRide(&newPatron);
+        }
+    }while(buyingOption != "N");
     return newPatron;
 }
 
@@ -251,9 +259,9 @@ void modifyPatron(Patron* modifiedPatron){
             addTickets(modifiedPatron);
             break;
 
-        case 2: // purchase admittance to ride -- not implemented yet
+        case 2: // purchase admittance to ride
             addRide(modifiedPatron);
-            //cout << "not to be implemented yet" << endl;
+
             break;
 
         case 3: // edit name
@@ -261,7 +269,7 @@ void modifyPatron(Patron* modifiedPatron){
             break;
 
         default: // nonstandard input
-            std::cout << "Invalid Input!" << endl;
+            cout << "Invalid Input!" << endl;
             modifyPatron(modifiedPatron);
             break;
     }
@@ -282,103 +290,40 @@ void addTickets(Patron* patronToAddTo){
 }
 
 void addRide(Patron* patron){
-    string buyingOption = "";
-    while(buyingOption != "N"){
-        cout << "Would they like to purchase ride admittance now?" << endl;
-        cout << "N for No" << endl;
-        cin >> buyingOption;
-        if((buyingOption != "N")){
-            cout << "Which ride would you like to add?:" << endl;
-            cout << "1. Teacups" << endl;
-            cout << "2. Magic Carpet" << endl;
-            cout << "3. World Tour" << endl;
-            int ridechoice;
-            cin >> ridechoice;
-            switch(ridechoice){
-                case 1: // teacups ride
-                {
-                    if(patron->getNumTickets() >= 3){
-                        Ride newTeacups = Teacups();
-                        patron->addPatronRide(newTeacups);
-                        patron->setNumTickets(patron->getNumTickets() - 3);
-                        cout << "Added Teacups Ride!" << endl;
-                    }else{
-                        int ticketBuyChoice;
-                        cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
-                        cout << "1. Yes \n2. No" << endl;
-                        cin >> ticketBuyChoice;
-                        switch (ticketBuyChoice)
-                        {
-                        case 1:
-                            addTickets(patron);
-                            break;
-                        case 2:
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                    break;
-                }
-
-                case 2: // magic carpet ride
-                {
-                    if(patron->getNumTickets() >= 2){
-                        Ride newMagicCarpet = MagicCarpet();
-                        patron->addPatronRide(newMagicCarpet);
-                        patron->setNumTickets(patron->getNumTickets() - 2);
-                        cout << "Added Magic Carpet Ride!" << endl;
-                    }else{
-                        int ticketBuyChoice;
-                        cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
-                        cout << "1. Yes \n2. No" << endl;
-                        cin >> ticketBuyChoice;
-                        switch (ticketBuyChoice)
-                        {
-                        case 1:
-                            addTickets(patron);
-                            break;
-                        case 2:
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                    break;
-                }
-
-                case 3: // world tour ride
-                {
-                    if(patron->getNumTickets() >= 1){
-                        Ride newWorldTour = WorldTour();
-                        patron->addPatronRide(newWorldTour);
-                        patron->setNumTickets(patron->getNumTickets() - 1);
-                        cout << "Added World Tour Ride!" << endl;
-                    }else{
-                        int ticketBuyChoice;
-                        cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
-                        cout << "1. Yes \n2. No" << endl;
-                        cin >> ticketBuyChoice;
-                        switch (ticketBuyChoice)
-                        {
-                        case 1:
-                            addTickets(patron);
-                            break;
-                        case 2:
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-                    break;
-                }
-                default:
-                    cout << "Invalid input!" << endl;
-                    break;
-            }
-            //addRide(patron);
-        }
+    cout << "Which ride would you like to add?:" << endl;
+    cout << "1. World Tour" << endl;
+    cout << "2. Magic Carpet" << endl;
+    cout << "3. Teacups" << endl;
+    int ridechoice;
+    Ride newRide;
+    cin >> ridechoice;
+    switch (ridechoice)
+    {
+    case 1:
+        newRide = WorldTour();
+        break;
+    case 2:
+        newRide = MagicCarpet();
+        break;
+    case 3:
+        newRide = Teacups();
+        break;
+    default:
+        break;
     }
+    if(patron->getNumTickets() >= ridechoice){
+        patron->addPatronRide(newRide);
+        patron->setNumTickets(patron->getNumTickets() - ridechoice);
+    }
+    else{
+        int ticketBuyChoice;
+        cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
+        cout << "1. Yes \n2. No" << endl;
+        cin >> ticketBuyChoice;
+        if(ticketBuyChoice == 1){
+            addTickets(patron);
+        }
+    }           //addRide(patron);
 }
 
 void editName(Patron* newNamePatron){
