@@ -1,4 +1,5 @@
 Doc	Oc	3	3
 Ash	Kechum	19	19
 Homer	Simpson	4	4
-gamer	gaming	5	54
+gamer	gaming	54	54
+the	best	5	61
