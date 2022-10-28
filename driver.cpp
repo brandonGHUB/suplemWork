@@ -1,3 +1,9 @@
+/*
+Name(s): Brandon Ramirez and Adam Davis
+Project: Amusement Park System
+Class: CS202
+*/
+
 #include "patron.h"
 #include "Teacups.h"
 #include "MagicCarpet.h"
@@ -38,8 +44,8 @@ void printFileNotFound();
 //initialize input variable to value not found in menu to maintain while loop functionality
 int main(int argc, char* argv[]){
     if(argc < NUM_ARGS){ // Check File Input
-        cout << "Incorrect Usage!" << endl;
-        cout << "Usage: "  << argv[0] << " [argument (file name)]" << endl;
+        std::cout << "Incorrect Usage!" << std::endl;
+        std::cout << "Usage: "  << argv[0] << " [argument (file name)]" << std::endl;
         return -1;
     }
     else{
@@ -80,7 +86,7 @@ while(menu){
 
         case 2: // remove patron
         {
-            cout << "Enter the number of the patron you'd like to remove" << endl;
+            std::cout << "Enter the number of the patron you'd like to remove" << std::endl;
             int patronNumberChosen = getPatronOption(patrons, arraysize) - 1;
             removePatron(patrons, patronNumberChosen, &arraysize);
             overwriteFile(patrons, argv[1], arraysize);
@@ -89,7 +95,7 @@ while(menu){
 
         case 3: // modify patron
         {
-            cout << "Enter the number of the patron you'd like to modify" << endl;
+            std::cout << "Enter the number of the patron you'd like to modify" << std::endl;
             int patronNumberChosen = getPatronOption(patrons, arraysize) - 1;
             modifyPatron(&patrons[patronNumberChosen]);
             overwriteFile(patrons, argv[1], arraysize);
@@ -98,14 +104,14 @@ while(menu){
 
         case 4: // view patron
         {
-            cout << "Enter the number of the patron you'd like to view." << endl;
+            std::cout << "Enter the number of the patron you'd like to view." << std::endl;
             int patronNumberChosen = getPatronOption(patrons, arraysize) - 1;
             patrons[patronNumberChosen].displayPatronData();
             break;
         }
 
         default: // nonstandard input
-            cout << "Invalid Input!" << endl;
+            std::cout << "Invalid Input!" << std::endl;
             break;
         }
     }
@@ -116,34 +122,34 @@ while(menu){
 }
 
 void displayMenuOption(){
-    cout << "Menu Options\n1. Add Patron" << endl;
-    cout << "2. Remove Patron" << endl;
-    cout << "3. Modify Patron" << endl;
-    cout << "4. View Patron" << endl;
-    cout << "0. Exit" << endl;
+    std::cout << "Menu Options\n1. Add Patron" << std::endl;
+    std::cout << "2. Remove Patron" << std::endl;
+    std::cout << "3. Modify Patron" << std::endl;
+    std::cout << "4. View Patron" << std::endl;
+    std::cout << "0. Exit" << std::endl;
 }
 
 int getMenuOption(){
     int userinput;
-    cin >> userinput;
+    std::cin >> userinput;
     return userinput;
 }
 
 void printFileNotFound(){
-    cout << "File Not Found!" << endl;
+    std::cout << "File Not Found!" << std::endl;
 }
 
 void displayModOptions(){
-    cout << "Patron Modification Options\n1. Add Tickets" << endl;
-    cout << "2. Purchase Ride Admission" << endl;
-    cout << "3. Edit Name" << endl;
-    cout << "0. Exit to Main Menu" << endl;
+    std::cout << "Patron Modification Options\n1. Add Tickets" << std::endl;
+    std::cout << "2. Purchase Ride Admission" << std::endl;
+    std::cout << "3. Edit Name" << std::endl;
+    std::cout << "0. Exit to Main Menu" << std::endl;
 }
 
 int getModOption(){
     int userinput;
     displayModOptions();
-    cin >> userinput;
+    std::cin >> userinput;
     return userinput;
 }
 
@@ -185,21 +191,22 @@ int readExistingPatrons(Patron patrons[], string filename){
 void displayPatrons(Patron patrons[], int numPatrons){
 
     for(int i = 0; i < numPatrons; i++){
-        cout << i + 1 << ". " << patrons[i].getFirstName() << " " << patrons[i].getLastName() << endl;
+        // std::cout << i + 1 << ". " << patrons[i].getFirstName() << " " << patrons[i].getLastName() << std::endl;
+        patrons[i].displayName();
     }
 }
 
 int getPatronOption(Patron patronList[], int numPatrons){
     displayPatrons(patronList, numPatrons);
     int userinput;
-    cin >> userinput;
+    std::cin >> userinput;
     return userinput;
 }
 
 void addPatron(Patron patrons[], Patron newPatron, int* numPatrons){
     patrons[*numPatrons] = newPatron;
     *numPatrons += 1;
-    cout << "Added Patron!" << endl;
+    std::cout << "Added Patron!" << std::endl;
 }
 
 
@@ -209,22 +216,22 @@ Patron createNewPatron(){
     int idNumber;
     int numRides = 0;
     int numTickets;
-    cout << "Let's add a patron to the system!" << endl;
-    cout << "Patron First Name:" << endl;
-    cin >> firstname;
-    cout << "Patron Last Name:" << endl;
-    cin >> lastname;
-    cout << "Patron ID Number" << endl;
-    cin >> idNumber;
-    cout << "Number of Tickets" << endl;
-    cin >> numTickets;
+    std::cout << "Let's add a patron to the system!" << std::endl;
+    std::cout << "Patron First Name:" << std::endl;
+    std::cin >> firstname;
+    std::cout << "Patron Last Name:" << std::endl;
+    std::cin >> lastname;
+    std::cout << "Patron ID Number" << std::endl;
+    std::cin >> idNumber;
+    std::cout << "Number of Tickets" << std::endl;
+    std::cin >> numTickets;
     Ride rides[numRides]; // keep full of random crap for now
     Patron newPatron = Patron(firstname, lastname, idNumber, numTickets, numRides, rides);
     string buyingOption;
     do{
-        cout << "Would they like to purchase ride admittance now?" << endl;
-        cout << "N for No" << endl;
-        cin >> buyingOption;
+        std::cout << "Would they like to purchase ride admittance now?" << std::endl;
+        std::cout << "N for No" << std::endl;
+        std::cin >> buyingOption;
         if(buyingOption != "N"){
         addRide(&newPatron);
         }
@@ -234,7 +241,7 @@ Patron createNewPatron(){
 
 void removePatron(Patron patrons[], int optPatron, int* numPatrons){
     if(optPatron <= *numPatrons){
-        cout << "Removed " << patrons[optPatron].getFirstName() << " " << patrons[optPatron].getLastName() << endl;
+        std::cout << "Removed " << patrons[optPatron].getFirstName() << " " << patrons[optPatron].getLastName() << std::endl;
 
         for(int i = optPatron; i < *numPatrons; i++){
             patrons[i] = patrons[i+1];
@@ -243,7 +250,7 @@ void removePatron(Patron patrons[], int optPatron, int* numPatrons){
         *numPatrons -= 1;
     }
     else{
-        cout << "Invalid Patron Number!" << endl;
+        std::cout << "Invalid Patron Number!" << std::endl;
     }
 }
 
@@ -269,7 +276,7 @@ void modifyPatron(Patron* modifiedPatron){
             break;
 
         default: // nonstandard input
-            cout << "Invalid Input!" << endl;
+            std::cout << "Invalid Input!" << std::endl;
             modifyPatron(modifiedPatron);
             break;
     }
@@ -277,26 +284,26 @@ void modifyPatron(Patron* modifiedPatron){
 
 void addTickets(Patron* patronToAddTo){
     int addedTickets;
-    cout << "Enter amount of tickets to be added: " << endl;
-    cin >> addedTickets;
+    std::cout << "Enter amount of tickets to be added: " << std::endl;
+    std::cin >> addedTickets;
     if(addedTickets >= 0){
         int oldTickets = patronToAddTo->getNumTickets();
         patronToAddTo->setNumTickets(oldTickets + addedTickets);
-        cout << "Added Tickets!" << endl;
+        std::cout << "Added Tickets!" << std::endl;
     }else{
-        cout << "Tickets cannot be negative!" << endl;
+        std::cout << "Tickets cannot be negative!" << std::endl;
     }
 
 }
 
 void addRide(Patron* patron){
-    cout << "Which ride would you like to add?:" << endl;
-    cout << "1. World Tour" << endl;
-    cout << "2. Magic Carpet" << endl;
-    cout << "3. Teacups" << endl;
+    std::cout << "Which ride would you like to add?:" << std::endl;
+    std::cout << "1. World Tour" << std::endl;
+    std::cout << "2. Magic Carpet" << std::endl;
+    std::cout << "3. Teacups" << std::endl;
     int ridechoice;
     Ride newRide;
-    cin >> ridechoice;
+    std::cin >> ridechoice;
     switch (ridechoice)
     {
     case 1:
@@ -317,9 +324,9 @@ void addRide(Patron* patron){
     }
     else{
         int ticketBuyChoice;
-        cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << endl;
-        cout << "1. Yes \n2. No" << endl;
-        cin >> ticketBuyChoice;
+        std::cout << "Patron doesn't have enough tickets. Do they want to purchase tickets?" << std::endl;
+        std::cout << "1. Yes \n2. No" << std::endl;
+        std::cin >> ticketBuyChoice;
         if(ticketBuyChoice == 1){
             addTickets(patron);
         }
@@ -327,30 +334,30 @@ void addRide(Patron* patron){
 }
 
 void editName(Patron* newNamePatron){
-    cout << "Would you like to edit the:" << endl;
-    cout << "1. First Name" << endl;
-    cout << "2. Last Name" << endl;
-    cout << "3. Whole Name" << endl;
+    std::cout << "Would you like to edit the:" << std::endl;
+    std::cout << "1. First Name" << std::endl;
+    std::cout << "2. Last Name" << std::endl;
+    std::cout << "3. Whole Name" << std::endl;
     int namechoice;
-    cin >> namechoice;
+    std::cin >> namechoice;
     switch(namechoice){
         case 1: // only first name
         {
-            cout << "Enter edited first name." << endl;
+            std::cout << "Enter edited first name." << std::endl;
             string newFirstName;
-            cin >> newFirstName;
+            std::cin >> newFirstName;
             newNamePatron->setFirstName(newFirstName);
-            cout << "Name Changed!" << endl;
+            std::cout << "Name Changed!" << std::endl;
             break;
         }
 
         case 2: // only last name
         {
-            cout << "Enter edited last name." << endl;
+            std::cout << "Enter edited last name." << std::endl;
             string newLastName;
-            cin >> newLastName;
+            std::cin >> newLastName;
             newNamePatron->setLastName(newLastName);
-            cout << "Name Changed!" << endl;
+            std::cout << "Name Changed!" << std::endl;
             break;
         }
 
@@ -358,17 +365,17 @@ void editName(Patron* newNamePatron){
         {
             string newFirstName;
             string newLastName;
-            cout << "Enter edited first name." << endl;
-            cin >> newFirstName;
-            cout << "Enter edited last name." << endl;
-            cin >> newLastName;
+            std::cout << "Enter edited first name." << std::endl;
+            std::cin >> newFirstName;
+            std::cout << "Enter edited last name." << std::endl;
+            std::cin >> newLastName;
             newNamePatron->setFirstName(newFirstName);
             newNamePatron->setLastName(newLastName);
-            cout << "Name Changed!" << endl;
+            std::cout << "Name Changed!" << std::endl;
             break;
         }
         default:
-            cout << "Invalid input!" << endl;
+            std::cout << "Invalid input!" << std::endl;
             break;
     }
 }
@@ -388,11 +395,11 @@ void overwriteFile(Patron patronArray[], string fileName, int numPatron){
             string lname = patronArray[i].getLastName();
             int iD = patronArray[i].getPatronNumber();
             int tix = patronArray[i].getNumTickets();
-            outFile << fname << "\t" << lname << "\t" << iD << "\t" << tix << endl;
-            //cout << "should work" << endl;
+            outFile << fname << "\t" << lname << "\t" << iD << "\t" << tix << std::endl;
+            //std::cout << "should work" << std::endl;
         }
     }
 
-    cout << "\nUpdated Information! \n" << endl;
+    std::cout << "\nUpdated Information! \n" << std::endl;
     outFile.close();
 }
